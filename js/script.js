@@ -1,4 +1,3 @@
-
 window.addEventListener("DOMContentLoaded", () => {
   const tabs = document.querySelectorAll(".tabheader__item"),
     tabsContent = document.querySelectorAll(".tabcontent"),
@@ -7,7 +6,7 @@ window.addEventListener("DOMContentLoaded", () => {
   function hideTabContent() {
     tabsContent.forEach((item) => {
       item.classList.add("hide", "fade");
-      item.classList.remove("show", "fade")
+      item.classList.remove("show", "fade");
     });
     tabs.forEach((item) => {
       item.classList.remove("tabheader__item_active");
