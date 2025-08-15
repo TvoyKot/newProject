@@ -609,7 +609,7 @@ a {
   animation-name: fade;
   animation-duration: 1.5s;
 }
-@keyframes fade{
+@keyframes fade {
   from {
     opacity: 0.1;
   }
@@ -622,4 +622,7 @@ a {
 }
 .show {
   display: block;
+}
+.body__stop_scroll {
+  overflow: hidden;
 }

@@ -28,19 +28,27 @@ window.addEventListener("DOMContentLoaded", () => {
           showTabContent(index);
         }
       });
-    console.log(target);
   });
 
   // TIMER
 
-  const deadline = "2025-08-20";
-
+  const deadline = "2025-08-10";
   function getTimeRemaining(endtime) {
+    let days, hours, minutes, seconds;
+
     const t = Date.parse(endtime) - Date.parse(new Date());
-    const days = Math.floor(t / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((t / 1000 / 60) % 60);
-    const seconds = Math.floor((t / 1000) % 60);
+    if (t <= 0) {
+      days = 0;
+      hours = 0;
+      minutes = 0;
+      seconds = 0;
+    } else {
+      days = Math.floor(t / (1000 * 60 * 60 * 24));
+      hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+      minutes = Math.floor((t / 1000 / 60) % 60);
+      seconds = Math.floor((t / 1000) % 60);
+    }
+
     return {
       total: t,
       days: days,
@@ -72,11 +80,58 @@ window.addEventListener("DOMContentLoaded", () => {
       hours.innerHTML = getZero(t.hours);
       minutes.innerHTML = getZero(t.minutes);
       seconds.innerHTML = getZero(t.seconds);
-    }
-    if (t.total <= 0) {
-      clearInterval(timerInterval);
+      if (t.total <= 0) {
+        clearInterval(timerInterval);
+      }
     }
   }
 
   setClock(".timer", deadline);
+
+  // MODAL
+
+  const modalTrigger = document.querySelectorAll("[data-modal]");
+  const modal = document.querySelector(".modal");
+  const modelCloseBtn = document.querySelector("[data-close]");
+
+  function openModal() {
+    modal.classList.add("show");
+    stopScrollPage();
+  }
+
+  function closeModal() {
+    modal.classList.remove("show");
+    stopScrollPage();
+  }
+
+  function stopScrollPage() {
+    if (modal.classList.contains("show")) {
+      document.body.classList.add("body__stop_scroll");
+    } else {
+      document.body.classList.remove("body__stop_scroll");
+    }
+  }
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeModal();
+      stopScrollPage();
+    } else {
+      return;
+    }
+  });
+
+  modalTrigger.forEach((btn) => {
+    btn.addEventListener("click", openModal);
+  });
+  modelCloseBtn.addEventListener("click", closeModal);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "Escape" && modal.classList.contains("show")) {
+      closeModal();
+      console.log(event);
+    } else {
+      return;
+    }
+  });
 });
