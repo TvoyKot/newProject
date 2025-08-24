@@ -340,13 +340,24 @@ window.addEventListener("DOMContentLoaded", () => {
   let slideIndex = 1;
   let offset = 0;
 
-  if (slides.length < 10) {
-    total.textContent = `0${slides.length}`;
-    current.textContent = `0${slideIndex}`;
-  } else {
-    total.textContent = slides.length;
-    current.textContent = slideIndex;
-  }
+  const currentIndexText = () => {
+    if (slides.length < 10) {
+      current.textContent = `0${slideIndex}`;
+    } else {
+      current.textContent = slideIndex;
+    }
+  };
+
+  const currentTotalText = () => {
+    if (slides.length < 10) {
+      total.textContent = `0${slides.length}`;
+    } else {
+      total.textContent = slides.length;
+    }
+  };
+
+  currentIndexText();
+  currentTotalText();
 
   slidesField.style.width = 100 * slides.length + "%";
   slidesField.style.display = "flex";
@@ -370,12 +381,8 @@ window.addEventListener("DOMContentLoaded", () => {
     } else {
       slideIndex++;
     }
-
-    if (slides.length < 10) {
-      current.textContent = `0${slideIndex}`;
-    } else {
-      current.textContent = slideIndex;
-    }
+    currentIndexText();
+    currentTotalText();
   });
 
   prevBtn.addEventListener("click", () => {
@@ -391,48 +398,9 @@ window.addEventListener("DOMContentLoaded", () => {
     } else {
       slideIndex--;
     }
-
-    if (slides.length < 10) {
-      current.textContent = `0${slideIndex}`;
-    } else {
-      current.textContent = slideIndex;
-    }
+    currentIndexText();
+    currentTotalText();
   });
 
-  // showSlides(slideIndex);
-
-  // if (slides.length < 10) {
-  //   total.textContent = `0${slides.length}`;
-  // } else {
-  //   total.textContent = slides.length;
-  // }
-
-  // function showSlides(n) {
-  //   if (n > slides.length) {
-  //     slideIndex = 1;
-  //   }
-  //   if (n < 1) {
-  //     slideIndex = slides.length;
-  //   }
-  //   slides.forEach((item) => {
-  //     item.style.display = "none";
-  //   });
-  //   slides[slideIndex - 1].style.display = "block";
-
-  //   if (slides.length < 10) {
-  //     current.textContent = `0${slideIndex}`;
-  //   } else {
-  //     current.textContent = slideIndex;
-  //   }
-
-  // }
-
-  // function plusSlides(n) {
-  //   showSlides((slideIndex += n));
-  // }
-
-  // prevBtn.addEventListener("click", () => plusSlides(-1));
-  // nextBtn.addEventListener("click", () => plusSlides(1));
-
-// ********* END SLIDER ***********
+  // ********* END SLIDER ***********
 });
